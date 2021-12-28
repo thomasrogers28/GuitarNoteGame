@@ -23,6 +23,20 @@ answer_grid =  [["E","A","D","G","B","E"]
                 ,["D#","G#","C#","F#","A#","D#"]
                 ,["E","A","D","G","B","E"]];
 
+finished_grid =  [["","","","","",""]
+                ,["","","","","",""]
+                ,["","","","","",""]
+                ,["","","","","",""]
+                ,["","","","","",""]
+                ,["","","","","",""]
+                ,["","","","","",""]
+                ,["","","","","",""]
+                ,["","","","","",""]
+                ,["","","","","",""]
+                ,["","","","","",""]
+                ,["","","","","",""]
+                ,["","","","","",""]];
+
 #pick a random fret and string to guess against
 string = randrange(6);
 fret = randrange(13);
@@ -57,18 +71,28 @@ question = string_str + string_suffix + " string, " + fret_str + fret_suffix + "
 
 #submit guess
 guess = input(question);
-#print(question);
-#guess = "E";
-#print(guess);
+
+#fix formatting of the guess
+guess = guess.capitalize();
+
+#change flats to sharps to match the answer grid
+if len(guess) == 2 and guess[1] == "b" and guess[0] == "A":
+    guess = "G#"
+elif len(guess) == 2 and guess[1] == "b":
+    guess = chr(ord(guess[0]) - 1) + "#";
+    
+#print the guess for trouble shooting
+print(guess);
 
 #find answer from starting grid
 answer = answer_grid[fret][string];
 
 #show if the answer is correct
-if guess == answer :
+if guess == answer:
     print("Correct!")
 else:
     print("Incorrect - The answer is " + answer);
 
-
+#update blank grid
+finished_grid[fret][string] = answer;
 
