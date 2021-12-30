@@ -6,26 +6,38 @@ Created on Mon Dec 27 18:25:38 2021
 """
 from random import randrange
 
-#create a list of the correct answers to compare to
-#each line refers to a fret, and then each element within it referes to 
-#a string starting at the lowest string
-answer_grid =  [["E","A","D","G","B","E"]
-                ,["F","A#","D#","G#","C","F"]
-                ,["F#","B","E","A","C#","F#"]
-                ,["G","C","F","A#","D","G"]
-                ,["G#","C#","F#","B","D#","G#"]
-                ,["A","D","G","C","E","A"]
-                ,["A#","D#","G#","C#","F","A#"]
-                ,["B","E","A","D","F#","B"]
-                ,["C","F","A#","D#","G","C"]
-                ,["C#","F#","B","E","G#","C#"]
-                ,["D","G","C","F","A","D"]
-                ,["D#","G#","C#","F#","A#","D#"]
-                ,["E","A","D","G","B","E"]];
+########## DECLARE PARAMETERS ############
+
+#define the open tuning for fret 0 (open fret)
+tuning = ["E", "A", "D", "G", "B", "E"]
 
 #set difficulty parameters from 1-3
-diff_fret = 1;
-diff_string = 2;
+diff_fret = 2;
+diff_string = 3;
+
+#this is to allow a max round number (to avoid having to complete up to 120 iterations each test)
+count = 1
+max_count = 10
+
+########## SETTING FUNCTIONALITY ############
+
+#start with a list of notes (for stepping through and cycling)
+notes = ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"]
+
+#create a list of the correct answers to compare to
+#each line refers to a fret, and then each element within it refers to a string starting at the lowest string
+answer_grid = []
+next_fret = []
+fret_count = 19 #classical guitars go up to 19 frets, but this could be increased if preferred
+i = 0
+
+while i <=  fret_count:
+    for string in tuning:
+        next_note = notes[(notes.index(string) + i) % 12]
+        next_fret.append(next_note)
+    answer_grid.append(next_fret)
+    next_fret = []
+    i += 1
 
 #set difficulty settings - fret
 if diff_fret == 1:
@@ -52,11 +64,10 @@ finished_grid = [["" for y in x] for x in finished_grid];
 #create list to track successful guesses
 guess_scores = [];
 
-#this is to allow a max round number (to avoid having to complete 72 iterations each test)
-count = 1
+########## GAMEPLAY ############
 
 #loop until finished_grid is complete
-while (answer_grid != finished_grid) and count <= 3:
+while (answer_grid != finished_grid) and count <= max_count:
     #pick a random fret and string to guess against
     compare = "H";
     while compare != "":
@@ -139,10 +150,7 @@ while (answer_grid != finished_grid) and count <= 3:
     
     count = count + 1;
  
-#display results  
+########## DISPLAY RESULTS ############
+
 print("Congratulations, you've scored:");
 print(str(100 * sum(guess_scores)/len(guess_scores)) + "%");
-
-print(answer_grid)
-print(finished_grid)
-print(guess_scores)
