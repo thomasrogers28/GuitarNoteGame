@@ -126,10 +126,11 @@ while (answer_grid != finished_grid) and count <= max_count:
     guess = guess.capitalize();
     
     #change flats to sharps to match the answer grid
-    if len(guess) == 2 and guess[1] == "b" and guess[0] == "A":
-        guess = "G#"
-    elif len(guess) == 2 and guess[1] == "b":
-        guess = chr(ord(guess[0]) - 1) + "#";
+    if len(guess) == 2 and guess[1] == "b":
+        guess = notes[(notes.index(guess[0]) - 1) % 12]
+    #change sharps to whole notes to match the answer grid (e.g. B# => C)
+    elif len(guess) == 2 and guess[1] == "#" and guess not in notes:
+        guess = notes[(notes.index(guess[0]) + 1) % 12];
         
     #print the guess for trouble shooting
     print(guess);
