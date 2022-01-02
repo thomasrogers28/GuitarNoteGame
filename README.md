@@ -1,7 +1,9 @@
 # GuitarNoteGame
-A game designed to help memorise the positions of notes on a guitar 
+A game designed to help memorise the positions of notes on a guitar.
 
 Current version is for a classical 6-string guitar with standard tuning up to the 19th fret.
+
+Two versions are currently available for this game: the first is played within the python console, and the second creates a front end display using pygame. I have kept these separate for now as an additional quality control, however I intend to merge the two in the future.
 
 # Options
 Additional options to change the difficulty settings for frets and strings:
@@ -21,4 +23,7 @@ Strings:
   - Hard (3) - all six strings
 
 # Future Developments
-- Add more visual effects to make learning easier
+- Add text to the display to show the current question 
+- Add text to the display to show what the previous correct answer was when guessed incorrectly
+- Add an on-screen timer 
+- Create a 'Start' page to allow users to alter options without adjusting code
